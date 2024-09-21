@@ -1,7 +1,7 @@
 export default function About() {
   return (
-  <main className="flex flex-col h-screen w-screen justify-center items-center top-0 absolute z-0">
-  <div className="w-2/3 bg-blue-950 rounded-xl border-8 p-3">
+  <main className="bg-[url('/about_us_background.jpg')] bg-cover flex flex-col h-screen w-screen justify-center items-center top-0 absolute z-0">
+  <div className="w-2/3 bg-gray-800 rounded-xl border-4 p-3">
   <h1 className="text-3xl underline mb-3">About</h1>
   <p>
   I have been a GCSE maths tutor for many years and write notes on topics for my students. These notes form the basis of this site. There are also lots of questions to try.

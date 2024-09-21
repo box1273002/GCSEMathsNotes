@@ -1,6 +1,6 @@
 export const subjects = [
   {name: 'Core Skills',id: 'core_skills',topics: [
-    {name: 'Rounding', description: 'Rounding to signigicant figures and decimal places.', higher:  false},
+    {name: 'Rounding', description: 'Rounding to signigicant figures and decimal places.', higher:  true},
     {name: 'Change of Units', description: 'Changing between related units, e.g. Km and cm or hours and second.', higher:  false},
     {name: 'LCM and HCF', description: 'Calculating Lowest Common Multiples (LCMs) and Highest Common Fcators (HCFs).', higher:  false},
     {name: 'Negative Numbers', description: 'Multiplying, divising, adding and subtracting negative numers.', higher:  false},
@@ -62,5 +62,16 @@ export const subjects = [
     {name:"Frequency polygons", description: "Drawing and interreting frequency polygons", higher:  false},
     {name:"Cumulative frequency graphs", description: "Drawing and interreting cumulative frequency graphs", higher:  false},
     {name:"Box plots", description: "Drawing and interreting box plots", higher:  false},
-  ]}
+  ]},
+  {name: 'Probablity', id: 'probablity', topics: []},
+  {name: 'Lines', id: 'lines', topics: [
+    {name:"Straight lines", description: "Using the standard line equation, seeing if lines are parallel and forming a specific line equation", higher: false},
+    {name:"Simultaneous equations", description: "Solving linear simultaneous equations, which gives the coordinates of the where the lines meet.", higher: false},
+    {name:"Graph work", description: "The key graphs you need to recognise and what you can deduce from them", higher: false},
+  ]},
+  {name: 'Inequalities', id:'inequalities', topics: [
+    {name:"Inequalities - What they are", description: "", higher: false},
+    {name:"Inequalities on the number line", description: "", higher: false},
+    {name:"Inequalities on a graph", description: "", higher: false}
+  ]},
 ]

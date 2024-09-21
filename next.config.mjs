@@ -1,32 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['js','jsx','md','mdx','ts','tsx'],
   async redirects() {
-    const specificUrls = [
-      'angles',
-      'vocabulary',
-      'circles',
-      'core_skills',
-      'dealing_with_data',
-      'fractions_and_decimals',
-      'inequalities',
-      'lines',
-      'percentages',
-      'powers_and_roots',
-      'proportion',
-      'quadratics',
-      'sequences',
-      'shapes_and_geometry',
-      'triangles',
-      'compound_units'
-    ];
+    
+    return [
 
-    const redirects = specificUrls.map((url) => ({
-      source: `/topics/${url}`,
-      destination: `/topics#${url}`,
+    {
+      source: '/',
+      destination: '/?level=foundation',
       permanent: true,
-    }));
-
-    return redirects;
+      missing: [
+        {
+          type: 'query',
+          key: 'level',  // Redirect if 'level' query parameter is missing
+        },
+      ],
+    }
+   ];
   },
 };
 

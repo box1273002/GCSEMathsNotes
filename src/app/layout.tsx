@@ -1,7 +1,7 @@
 import { inter, shadowsIntoLight } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
-import  ContextWrapper  from'./context-wrapper';
 import type { Metadata } from "next";
+import TopNav from '@/app/ui/home/top-nav';
 
 export const metadata: Metadata = {
   title: {
@@ -24,8 +24,9 @@ export default function RootLayout({
         <meta name="description" content={metadata.description} />
         <title>{metadata.title.default}</title>
       </head>
-      <body className={`bg-fixed bg-[url('/polygon-scatter.svg')] bg-cover ${inter.className}`}>
-        <ContextWrapper>{children}</ContextWrapper>
+      <body className={`bg-fixed bg-cover ${inter.className}`}>
+        <TopNav />
+        {children}
       </body>
     </html>
   );

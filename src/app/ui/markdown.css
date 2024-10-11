@@ -1,0 +1,21 @@
+
+
+/* Style for Markdown Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-width: 1px;
+}
+th {
+  text-dectoration: underline;
+}
+th, td {
+  text-dectoration: underline;
+  padding: 12px 15px;
+  border-width: 1px;
+  width:50%;
+}
+
+
+
+

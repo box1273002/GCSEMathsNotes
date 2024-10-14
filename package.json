@@ -11,13 +11,20 @@
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.2.12",
+    "@next/mdx": "^14.2.15",
     "@types/mdx": "^2.0.13",
-    "next": "14.2.4",
+    "next": "^14.2.15",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "rehype-katex": "^7.0.1",
+    "rehype-mathjax": "^6.0.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

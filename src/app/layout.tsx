@@ -2,6 +2,7 @@ import { inter, shadowsIntoLight } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
 import type { Metadata } from "next";
 import TopNav from '@/app/ui/home/top-nav';
+import 'katex/dist/katex.min.css'
 
 export const metadata: Metadata = {
   title: {

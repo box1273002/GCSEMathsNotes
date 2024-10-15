@@ -1,0 +1,43 @@
+---
+title: Algebraic Proofs
+description: ???
+---
+When asked to prove something you need to use generic integers, e.g. n.
+State what your generic numbers will be.
+Common ones you might need to use are:
+- $n$ is any integer
+-  $2n$ is any even integer
+-  $2n+1$ is any odd integer
+-  $n$, $n+1$, $n+2$ are consecutive integers
+-  $2n$, $2n+2$, $2n+4$ etc are consecutive even integers
+-  $2n+1$, $2n+3$, $2n+5$ etc are consecutive odd integers
+-  $3n$ is a multiple of $3$, $4n$ is a multiple of $4$ etc
+If you are asked to consider unrelated integers, they must be based on a different letter. For
+example:
+- 2 unrelated integers, then use $m$ and $n$.
+- 2 unrelated even integers, then use $2m$ and $2n$.
+- 2 unrelated odd integers, then use $2m+1$ and $2n+1$.
+Related integers will be when the position of one is related to the position of the other, e.g. they are
+multiples of each other, are consecutive, powers of each other etc.
+Also you might be asked to show something is a multiple of something or has a certain remainder
+when divided by something:
+- If you have to show something is a multiple of, say, $8$, then $8$ must be a factor.
+-  If you need to show something is an even integer, then $2$ must be a factor
+- If you need to show something is an odd integer, you must be able to show there is a
+remainder of $1$ when divided by $2$.
+## Examples
+### Example 1 - Prove the product of three consecutive odd numbers is odd
+| Maths                                                                                            | Explanation                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $2n + 1$, $2n + 3$, $2n + 5$ are three consecutive odd numbers                                   | State what your three consecutive odd numbers are                                                                                                                         |
+| Their product is $(2n + 1)(2n + 3)(2n + 5)$                                                      | Do what the proof is asking you to do to these numbers (in this case multiply them together.                                                                              |
+| $$\begin{aligned} &= (2n + 1)(4n^2 + 16n + 15)\\&= 8n^3  +32n^2+ 30n + 4n^2 + 16n + 15\end{aligned}$$ | At this point you can immediately say that<br/>everything is always divisible by 2 except the<br/>15, which is odd and not dependant on n, so<br/>the product is always odd. |
+| $$\begin{aligned}&= 8n^3 + 36n^2 + 46n + 15\\&=2(4n^3 + 18n^2 + 23n + 7) + 1\end{aligned}$$      | OR you can collect like terms and then say<br/>when divided by 2 there is a remainder of 1,<br/>so it is odd                                                                |
+### Example 2 - Prove (2n + 1)(3n – 2) – (6n- 1)(n – 2) is always even
+| Maths                                   | Explaination                                                                                                                     |
+| :-------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| $$(2n + 1)(3n – 2) – (6n- 1)(n – 2) $$  | Do what the proof is asking you to do to<br/>these numbers.                                                                       |
+| $$= (6n^2 – n – 2) – (6n^2 – 13n +2) $$ | Keep both sections in brackets. This is<br/>important as the last bit has a negative sign<br/>outside the bracket.                 |
+| $$= 6n^2 – n – 2 – 6n^2 + 13n –2$$      | Remove the brackets, remembering the<br/>negative sign outside the second bracket<br/>changes the signs currently in that bracket. |
+| $$=12n-4$$                              | Collect like terms                                                                                                               |
+| $$=2(6n-2)$$                            | Every even number has 2 as a factor, so show<br/>the expression has a factor of 2.                                                |

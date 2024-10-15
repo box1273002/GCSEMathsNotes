@@ -20,6 +20,7 @@
     "rehype-katex": "^7.0.1",
     "rehype-mathjax": "^6.0.0",
     "remark": "^15.0.1",
+    "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0"
   },

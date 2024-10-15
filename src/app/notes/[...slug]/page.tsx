@@ -14,17 +14,20 @@ export default async function Page({ params } : {params : {slug: string[]}}) {
     mdxPath = path.join(mdxPath,param);
   };
   const source = await fs.readFile(mdxPath + ".mdx",'utf-8');
-  return (
-    <> 
-      <div className="flex justify-center">
-      <div className="flex-col max-w-3xl prose">
-        <MDXRemote source={source} options={{ 
+  const { content, frontmatter } = await compileMDX<{ title: string }>({source,options:
+    { 
         mdxOptions: {
           remarkPlugins:[remarkMath, remarkGfm],
           rehypePlugins:[rehypeKatex,rehypeMathJax],
           format: 'mdx',
         },
-        parseFrontmatter: false}} />
+        parseFrontmatter: true},})
+  return (
+    <> 
+      <div className="flex justify-center">
+      <div className="flex-col max-w-3xl">
+        <h1>{frontmatter.title}</h1>
+        {content}
       </div>
       </div>
     </>

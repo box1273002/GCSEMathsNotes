@@ -1,34 +1,50 @@
-'use client';
-import Link from 'next/link';
-import { subjects } from '@/app/topics/topics';
-import { useContext } from 'react';
-import { DifficultyContext } from '@/app/context';
-import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation'
+import { promises as fs } from 'fs'
+import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc'
+import path from 'path'
+import  TopicList  from '@/app/ui/topics/topic-list.tsx' 
+import remarkGfm from 'remark-gfm'
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
+import rehypeMathJax from 'rehype-mathjax'
+import createMDX from '@next/mdx'
 
-export default function Page() {
-  const searchParams = useSearchParams();
+export default async function Page() {
+  const filenames = await fs.readdir(path.join(process.cwd(),'src/app/(maths_notes)'));
+  let subjects: Record<string,Subject> = {};
+  await Promise.all(filenames.map(async (filename) => {
+    const source = await fs.readFile(path.join(process.cwd(), 'src/app/(maths_notes)', filename),'utf-8');
+    const { content, frontmatter } = await compileMDX<{ title: string }>({source,options:
+          { 
+          mdxOptions: {
+            remarkPlugins:[remarkMath, remarkGfm],
+            rehypePlugins:[rehypeKatex,rehypeMathJax],
+            format: 'mdx',
+          },
+          parseFrontmatter: true},});
+      
+    let topic: Topic = {
+        slug: filename.replace('.mdx',''),
+        title: frontmatter.title,
+        description: frontmatter.description,
+        level: frontmatter.level,
+    };
+
+    if (frontmatter.subject in subjects) {
+      subjects[frontmatter.subject].topics.push(topic);
+    } else {
+      let id: string = frontmatter.subject.toLowerCase().replace(/\s+/g, '-'); 
+      subjects[frontmatter.subject] = {
+        id: id,
+        name: frontmatter.subject,
+        topics: [topic], 
+      };
+    };
+  }
+  ));
+  
   return (
   <main className="px-6 pt-6 ">
-    {subjects.map((subject) => {
-        return (
-        <div key={subject.id}>
-        <div id={subject.id} className="text-6xl underline mb-6">{subject.name}</div>
-        <div className="grid grid-cols-2 md:grid-cols-3">
-            {subject.topics.map((topic) => {
-              let sanitised: string = topic.name.toLowerCase().replace(/\s+/g, '-');
-              sanitised = sanitised.replace(/[^a-z0-9-]/g, '');
-              sanitised = sanitised.replace(/^-+|-+$/g, '');
-              return (
-              <Link key={sanitised} href={`/topics/${sanitised}` + '?' + searchParams.toString()} className={clsx("flex-auto text-wrap rounded border-2 mr-3 mb-3 px-1.5 min-h-32 max-w-96 bg-[#18202f]", 
-                    {"hidden" : topic.higher === true && searchParams.get('level') === 'foundation'})}>
-                <div className="text-base font-bold pb-1 underline pt-1">{topic.name}</div>
-                <div className="text-sm">{topic.description}</div>
-              </Link>
-              );})}
-        </div></div>
-        );
-      })}
+    <TopicList subjects={subjects}/> 
   </main>
   )
-}
+};

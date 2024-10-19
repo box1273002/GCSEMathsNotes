@@ -1,5 +1,6 @@
 import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc'
 import { promises as fs } from 'fs'
+import fsSync from 'fs';
 import path from 'path'
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
@@ -7,13 +8,14 @@ import remarkMath from 'remark-math'
 import rehypeMathJax from 'rehype-mathjax'
 import createMDX from '@next/mdx'
 import '@/app/ui/markdown.css';
+import { redirect } from 'next/navigation'
 
 export default async function Page({ params } : {params : {slug: string[]}}) {
-  let mdxPath: string = path.join(process.cwd(),'src/app/notes');
-  for (const param of params.slug ) {
-    mdxPath = path.join(mdxPath,param);
+  let mdxPath: string = path.join(process.cwd(),'src/app/(maths_notes)',`${params.slug[1]}.mdx`);
+  if (!fsSync.existsSync(mdxPath)) {
+    redirect("/"); 
   };
-  const source = await fs.readFile(mdxPath + ".mdx",'utf-8');
+  const source = await fs.readFile(mdxPath,'utf-8');
   const { content, frontmatter } = await compileMDX<{ title: string }>({source,options:
     { 
         mdxOptions: {
@@ -21,7 +23,7 @@ export default async function Page({ params } : {params : {slug: string[]}}) {
           rehypePlugins:[rehypeKatex,rehypeMathJax],
           format: 'mdx',
         },
-        parseFrontmatter: true},})
+        parseFrontmatter: true},});
   return (
     <> 
       <div className="flex justify-center">

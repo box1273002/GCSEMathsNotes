@@ -10,7 +10,6 @@ const nextConfig = {
   async redirects() {
     
     return [
-
     {
       source: '/',
       destination: '/?level=foundation',
@@ -21,7 +20,17 @@ const nextConfig = {
           key: 'level',  // Redirect if 'level' query parameter is missing
         },
       ],
-    }
+    },
+    {
+      source: '/notes/:slug',
+      destination: '/topics#:slug',
+      permanent: true,
+    },
+    {
+      source: '/notes',  
+      destination: '/topics',
+      permanent: true,
+    },
    ];
   },
 };

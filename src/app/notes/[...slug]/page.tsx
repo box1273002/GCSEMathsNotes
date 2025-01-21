@@ -27,7 +27,7 @@ export default async function Page({ params } : {params : {slug: string[]}}) {
   return (
     <> 
       <div className="flex justify-center">
-      <div className="flex-col max-w-3xl">
+      <div className="flex-col max-w-3xl pt-4">
         <h1>{frontmatter.title}</h1>
         {content}
       </div>

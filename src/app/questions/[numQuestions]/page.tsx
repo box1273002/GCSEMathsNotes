@@ -1,3 +1,5 @@
+
+export const runtime = 'edge';
 import QuestionList from '@/app/ui/questions/question-list';
 
 import { promises as fs } from 'fs'

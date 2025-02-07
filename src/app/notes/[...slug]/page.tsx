@@ -1,3 +1,5 @@
+
+export const runtime = 'edge';
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { promises as fs } from 'fs'
 import fsSync from 'fs';

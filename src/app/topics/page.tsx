@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
-import { MDXRemote, compileMDX } from 'next-mdx-remote/rsc'
+import { compileMDX } from 'next-mdx-remote/rsc'
 import path from 'path'
-import  TopicList  from '@/app/ui/topics/topic-list.tsx' 
+import TopicList from '@/app/ui/topics/topic-list.tsx'
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
@@ -9,42 +9,45 @@ import rehypeMathJax from 'rehype-mathjax'
 import createMDX from '@next/mdx'
 
 export default async function Page() {
-  const filenames = await fs.readdir(path.join(process.cwd(),'src/app/(maths_notes)'));
-  let subjects: Record<string,Subject> = {};
+  const filenames = await fs.readdir(path.join(process.cwd(), 'src/app/(maths_notes)'));
+  let subjects: Record<string, Subject> = {};
   await Promise.all(filenames.map(async (filename) => {
-    const source = await fs.readFile(path.join(process.cwd(), 'src/app/(maths_notes)', filename),'utf-8');
-    const { content, frontmatter } = await compileMDX<{ title: string }>({source,options:
-          { 
-          mdxOptions: {
-            remarkPlugins:[remarkMath, remarkGfm],
-            rehypePlugins:[rehypeKatex,rehypeMathJax],
-            format: 'mdx',
-          },
-          parseFrontmatter: true},});
-      
+    const source = await fs.readFile(path.join(process.cwd(), 'src/app/(maths_notes)', filename), 'utf-8');
+    const { content, frontmatter } = await compileMDX<{ title: string }>({
+      source, options:
+      {
+        mdxOptions: {
+          remarkPlugins: [remarkMath, remarkGfm],
+          rehypePlugins: [rehypeKatex, rehypeMathJax],
+          format: 'mdx',
+        },
+        parseFrontmatter: true
+      },
+    });
+
     let topic: Topic = {
-        slug: filename.replace('.mdx',''),
-        title: frontmatter.title,
-        description: frontmatter.description,
-        level: frontmatter.level,
+      slug: filename.replace('.mdx', ''),
+      title: frontmatter.title,
+      description: frontmatter.description,
+      level: frontmatter.level,
     };
 
     if (frontmatter.subject in subjects) {
       subjects[frontmatter.subject].topics.push(topic);
     } else {
-      let id: string = frontmatter.subject.toLowerCase().replace(/\s+/g, '-'); 
+      let id: string = frontmatter.subject.toLowerCase().replace(/\s+/g, '-');
       subjects[frontmatter.subject] = {
         id: id,
         name: frontmatter.subject,
-        topics: [topic], 
+        topics: [topic],
       };
     };
   }
   ));
-  
+
   return (
-  <main className="px-6 pt-6 ">
-    <TopicList subjects={subjects}/> 
-  </main>
+    <main className="px-6 pt-6 ">
+      <TopicList subjects={subjects} />
+    </main>
   )
 };

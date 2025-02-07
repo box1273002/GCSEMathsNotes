@@ -13,7 +13,7 @@ export default function Home() {
           className=' flex-auto text-3xl w-16 mx-16 text-center hover:underline hover:font-bold'>
           Notes
       </Link> 
-      <Link href={'/topics/'+ '?' + searchParams.toString()} className='flex-auto text-3xl w-16 mx-16 text-center hover:underline hover:font-bold'>Questions</Link>
+      <Link href={'/questions/'+ '?' + searchParams.toString()} className='flex-auto text-3xl w-16 mx-16 text-center hover:underline hover:font-bold'>Questions</Link>
       </div>
     </main>
   );

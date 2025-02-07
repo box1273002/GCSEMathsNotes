@@ -17,7 +17,7 @@ type Subject = {
 
 
 
-export default function TopicList({subjects}: Record<string,Subject>) {
+export default function TopicList({ subjects }: Record<string, Subject>) {
   const searchParams = useSearchParams();
   const subjectList: string[] = Object.keys(subjects).sort();
 
@@ -28,7 +28,7 @@ export default function TopicList({subjects}: Record<string,Subject>) {
         const visibleTopics = subjects[subject].topics.filter((topic) => {
           return (
             topic.level === "foundation" ||
-              searchParams.get("level") !== "higher"
+            searchParams.get("level") !== "higher"
           );
         });
 
@@ -42,13 +42,13 @@ export default function TopicList({subjects}: Record<string,Subject>) {
             <div id={subjects[subject].id} className="text-6xl underline mb-6">
               {subject}
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3">
+            <div className="flex flex-wrap gap-4">
               {visibleTopics.map((topic) => {
                 return (
                   <Link
                     key={topic.slug}
                     href={`/notes/${subjects[subject].id}/${topic.slug}?${searchParams.toString()}`}
-                    className="flex-auto text-wrap rounded border-2 mr-3 mb-3 px-1.5 min-h-32 max-w-96 bg-[#18202f]"
+                    className="flex-auto text-wrap rounded border-2 mr-3 mb-3 px-1.5 min-h-32 min-w-96 max-w-96 bg-[#18202f]"
                   >
                     <div className="text-base font-bold pb-1 underline pt-1">
                       {topic.title}

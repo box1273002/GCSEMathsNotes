@@ -2,20 +2,31 @@
 'use client'
 import { useState } from 'react';
 import clsx from 'clsx';
-type answer = [string, boolean]
+import Question from './question';
+import { CompileMDXResult } from 'next-mdx-remote/rsc';
 
-type Question = [string, answer[]]
-export default function QuestionList({ Questions }: { Questions: Question[] }) {
+import '@/app/ui/markdown.css';
+
+
+
+export function QuestionList({ Questions }: { Questions: CompileMDXResult[] }) {
   const [marked, setMarked] = useState<boolean>(false);
   const [totalCorrect, setTotalCorrect] = useState<number>(0);
   const numQuestions: number = Questions.length;
-  const markedOnClick = () => {
-    setMarked(true);
-  }
+
   return (
     <>
+      <ol className='list-decimal'>
+        {Questions.map((question) => {
+          return (
+            <li className='mb-16'>
+              <Question mdx_result={question} marked={marked} setMarked={setMarked} totalCorrect={totalCorrect} setTotalCorrect={setTotalCorrect} />
+            </li>
+          )
+        })}
+      </ol>
       <div className='flex justify-between items-center w-full'>
-        <span className={clsx({ "hidden": !marked, "text-red-500": totalCorrect === numQuestions, "text-green-600": totalCorrect !== numQuestions })}>Grade: {totalCorrect}/{numQuestions}</span>
+        <span className={clsx({ "hidden": !marked, "text-red-500": totalCorrect !== numQuestions, "text-green-600": totalCorrect === numQuestions })}>Grade: {totalCorrect}/{numQuestions}</span>
         <div className='flex-grow'></div>
         <button
           onClick={() => {

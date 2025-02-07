@@ -2,6 +2,9 @@
 
 /* Style for Markdown Tables */
 
+ol {
+  list-style-type: decimal;
+}
 h1 {
   font-size: 3.75rem; /* 60px */
   line-height: 1;

@@ -6,7 +6,8 @@ import { shadowsIntoLight } from '@/app/ui/fonts';
 const links = [
   {name: 'Home', href: '/'},
   {name: 'About', href: '/about'},
-  {name: 'Topics', href: '/topics'}
+  {name: 'Topics', href: '/topics'},
+  {name: 'Questions', href: '/questions'}
 ] 
 export default function NavLinks() {
   const pathname = usePathname();

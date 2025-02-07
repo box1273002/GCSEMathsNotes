@@ -1,15 +1,14 @@
 'use client'
 import Link from 'next/link';
-import clsx from 'clsx';
 import { useSearchParams } from 'next/navigation';
 
-type Topic = {
+export type Topic = {
   slug: string;
-  name: title;
+  name: string;
   description: string;
   level: string;
 };
-type Subject = {
+export type Subject = {
   id: string;
   name: string;
   topics: Topic[];
@@ -17,7 +16,7 @@ type Subject = {
 
 
 
-export default function TopicList({ subjects }: Record<string, Subject>) {
+export function TopicList({ subjects }: Record<string, Subject>) {
   const searchParams = useSearchParams();
   const subjectList: string[] = Object.keys(subjects).sort();
 
@@ -25,7 +24,7 @@ export default function TopicList({ subjects }: Record<string, Subject>) {
     <>
       {subjectList.map((subject) => {
         // Check if there are any visible topics for this subject
-        const visibleTopics = subjects[subject].topics.filter((topic) => {
+        const visibleTopics = subjects[subject].topics.filter((topic: Topic) => {
           return (
             topic.level === "foundation" ||
             searchParams.get("level") !== "higher"

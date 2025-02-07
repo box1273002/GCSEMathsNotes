@@ -1,12 +1,11 @@
 import { promises as fs } from 'fs'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import path from 'path'
-import TopicList from '@/app/ui/topics/topic-list.tsx'
+import { TopicList, Subject, Topic } from '@/app/ui/topics/topic-list'
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import rehypeMathJax from 'rehype-mathjax'
-import createMDX from '@next/mdx'
 
 export default async function Page() {
   const filenames = await fs.readdir(path.join(process.cwd(), 'src/app/(maths_notes)'));

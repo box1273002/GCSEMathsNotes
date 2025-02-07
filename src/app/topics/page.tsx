@@ -12,7 +12,7 @@ export default async function Page() {
   let subjects: Record<string, Subject> = {};
   await Promise.all(filenames.map(async (filename) => {
     const source = await fs.readFile(path.join(process.cwd(), 'src/app/(maths_notes)', filename), 'utf-8');
-    const { content, frontmatter } = await compileMDX<{ title: string }>({
+    const { content, frontmatter } = await compileMDX<{ title: string, description: string, level: string, subject: string }>({
       source, options:
       {
         mdxOptions: {

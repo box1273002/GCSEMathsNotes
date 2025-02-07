@@ -19,12 +19,17 @@ export default function Question({ mdx_result, marked, setMarked, totalCorrect, 
 
   let answers: Map<string, boolean> = new Map<string, boolean>();
   const { content, frontmatter } = mdx_result;
-  for (const answer of frontmatter.correct_answers) {
-    answers.set(answer, true);
+  if (Array.isArray(frontmatter.correct_answers)) {
+    for (const answer of frontmatter.correct_answers) {
+      answers.set(answer, true);
+    }
   }
-  for (const answer of frontmatter.incorrect_answers) {
-    answers.set(answer, false);
+  if (Array.isArray(frontmatter.incorrect_answers)) {
+    for (const answer of frontmatter.incorrect_answers) {
+      answers.set(answer, false);
+    }
   }
+
 
   const [pushed, setPushed] = useState<Map<string, boolean>>(
     new Map<string, boolean>(Array.from(answers.keys()).map(key => [key, false]))
@@ -39,13 +44,12 @@ export default function Question({ mdx_result, marked, setMarked, totalCorrect, 
 
     if (updatedCorrect !== answeredCorrectly) {
       setAnsweredCorrectly(updatedCorrect);
-      setTotalCorrect((prevTotalCorrect) => {
-        if (updatedCorrect) {
-          return prevTotalCorrect + 1;
-        } else {
-          return prevTotalCorrect - 1;
-        }
-      });
+      if (updatedCorrect) {
+        setTotalCorrect(totalCorrect + 1);
+
+      } else {
+        setTotalCorrect(totalCorrect - 1);
+      }
     }
   }, [pushed, answeredCorrectly]); // Add answeredCorrectly as dependency
 

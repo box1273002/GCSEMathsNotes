@@ -1,4 +1,4 @@
-import { QuestionList, QuestionContent } from '@/app/ui/questions/question-list';
+import QuestionList from '@/app/ui/questions/question-list';
 
 import { promises as fs } from 'fs'
 
@@ -34,7 +34,7 @@ export default async function Questions({ params }: { params: { numQuestions: st
     const random_question = filenames[Math.floor(Math.random() * filenames.length)];
     let mdxPath: string = path.join(process.cwd(), 'src/app/(questions)', `${random_question}`);
     const source = await fs.readFile(mdxPath, 'utf-8');
-    const result = await compileMDX<{ title: string }>(
+    const result = await compileMDX<{ correct_answers: string[], incorrect_answers: string[] }>(
       {
         source,
         options: {

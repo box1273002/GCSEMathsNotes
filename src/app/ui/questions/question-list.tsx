@@ -9,7 +9,7 @@ import '@/app/ui/markdown.css';
 
 
 
-export function QuestionList({ Questions }: { Questions: CompileMDXResult[] }) {
+export default function QuestionList({ Questions }: { Questions: CompileMDXResult[] }) {
   const [marked, setMarked] = useState<boolean>(false);
   const [totalCorrect, setTotalCorrect] = useState<number>(0);
   const numQuestions: number = Questions.length;

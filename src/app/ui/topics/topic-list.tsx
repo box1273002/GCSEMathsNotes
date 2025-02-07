@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 
 export type Topic = {
   slug: string;
-  name: string;
+  title: string;
   description: string;
   level: string;
 };
@@ -16,7 +16,7 @@ export type Subject = {
 
 
 
-export function TopicList({ subjects }: Record<string, Subject>) {
+export function TopicList({ subjects }: { subjects: Record<string, Subject> }) {
   const searchParams = useSearchParams();
   const subjectList: string[] = Object.keys(subjects).sort();
 

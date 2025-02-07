@@ -8,7 +8,7 @@ export default function Slider() {
   const [value, setValue] = useState(20);
   const searchParams = useSearchParams();
 
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: any) => {
     setValue(e.target.value);
   };
 

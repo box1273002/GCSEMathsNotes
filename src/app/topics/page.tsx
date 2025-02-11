@@ -8,10 +8,10 @@ import remarkMath from 'remark-math'
 import rehypeMathJax from 'rehype-mathjax'
 
 export default async function Page() {
-  const filenames = await fs.readdir(path.join(process.cwd(), 'src/app/(maths_notes)'));
+  const filenames = await fs.readdir(path.join(process.cwd(), 'public/maths_notes'));
   let subjects: Record<string, Subject> = {};
   await Promise.all(filenames.map(async (filename) => {
-    const source = await fs.readFile(path.join(process.cwd(), 'src/app/(maths_notes)', filename), 'utf-8');
+    const source = await fs.readFile(path.join(process.cwd(), 'public/maths_notes', filename), 'utf-8');
     const { content, frontmatter } = await compileMDX<{ title: string, description: string, level: string, subject: string }>({
       source, options:
       {
@@ -34,6 +34,11 @@ export default async function Page() {
     if (frontmatter.subject in subjects) {
       subjects[frontmatter.subject].topics.push(topic);
     } else {
+
+      if (!frontmatter.subject) {
+        console.error(`Missing subject in frontmatter of file: ${filename}`);
+        return; // Skip this file
+      }
       let id: string = frontmatter.subject.toLowerCase().replace(/\s+/g, '-');
       subjects[frontmatter.subject] = {
         id: id,

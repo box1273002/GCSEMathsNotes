@@ -2,17 +2,13 @@
 export const runtime = 'edge';
 import QuestionList from '@/app/ui/questions/question-list';
 
-import { promises as fs } from 'fs'
 
-import path from 'path'
 import { compileMDX, CompileMDXResult } from 'next-mdx-remote/rsc'
-import fsSync from 'fs';
 
 
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
-import rehypeMathJax from 'rehype-mathjax'
 import '@/app/ui/markdown.css';
 
 
@@ -30,19 +26,21 @@ export default async function Questions({ params }: { params: { numQuestions: st
     );
   }
 
-  const filenames = await fs.readdir(path.join(process.cwd(), 'src/app/(questions)'));
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/questions/files.json`);
+  const filenames = await response.json();
   let questions: CompileMDXResult[] = []
   for (let x = 0; x < numQuestions; x++) {
     const random_question = filenames[Math.floor(Math.random() * filenames.length)];
-    let mdxPath: string = path.join(process.cwd(), 'src/app/(questions)', `${random_question}`);
-    const source = await fs.readFile(mdxPath, 'utf-8');
+    const question_file = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/questions/${random_question}`);
+    const source = await question_file.text();
     const result = await compileMDX<{ correct_answers: string[], incorrect_answers: string[] }>(
       {
         source,
         options: {
           mdxOptions: {
             remarkPlugins: [remarkMath, remarkGfm],
-            rehypePlugins: [rehypeKatex, rehypeMathJax],
+            rehypePlugins: [rehypeKatex],
             format: 'mdx',
           },
           parseFrontmatter: true

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from "react";
 import { useSearchParams } from 'next/navigation';
 
-export default function Slider() {
+export default function Page() {
   const [value, setValue] = useState(20);
   const searchParams = useSearchParams();
 

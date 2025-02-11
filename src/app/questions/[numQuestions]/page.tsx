@@ -1,15 +1,15 @@
-
+'use client';
 export const runtime = 'edge';
 import QuestionList from '@/app/ui/questions/question-list';
 
 
 import { compileMDX, CompileMDXResult } from 'next-mdx-remote/rsc'
 
-
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import '@/app/ui/markdown.css';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -26,13 +26,12 @@ export default async function Questions({ params }: { params: { numQuestions: st
     );
   }
 
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/questions/files.json`);
+  const response = await fetch(`/questions/files.json`);
   const filenames = await response.json();
   let questions: CompileMDXResult[] = []
   for (let x = 0; x < numQuestions; x++) {
     const random_question = filenames[Math.floor(Math.random() * filenames.length)];
-    const question_file = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/questions/${random_question}`);
+    const question_file = await fetch(`/questions/${random_question}`);
     const source = await question_file.text();
     const result = await compileMDX<{ correct_answers: string[], incorrect_answers: string[] }>(
       {

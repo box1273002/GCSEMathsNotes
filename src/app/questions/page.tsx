@@ -20,7 +20,7 @@ export default function Page() {
           id="slider"
           type="range"
           min="5"
-          max="100"
+          max="20"
           step="5"
           value={value}
           onChange={handleSliderChange}
